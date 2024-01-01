@@ -1,1 +1,1 @@
-react 공부 파일입니다~
+React를 이용한 Todo앱 
