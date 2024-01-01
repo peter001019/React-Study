@@ -1,19 +1,26 @@
 import "./App.css";
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 import Lists from "./components/Lists";
 import Form from "./components/Form";
+
+const initialTodoData = localStorage.getItem("todoData")
+? JSON.parse(localStorage.getItem("todoData"))
+: [];
 
 export default function App() {
   console.log("App Component");
 
-  const [todoData, setTodoData] = useState([]);
+  const [todoData, setTodoData] = useState(initialTodoData);
   const [value, setValue] = useState("");
 
-  const handleClick = useCallback((id) => {
-    let newTododata = todoData.filter((data) => data.id !== id);
-    setTodoData(newTododata);
-  }, [todoData]);
-
+  const handleClick = useCallback(
+    (id) => {
+      let newTododata = todoData.filter((data) => data.id !== id);
+      setTodoData(newTododata);
+      localStorage.setItem("todoData", JSON.stringify(newTododata));
+    },
+    [todoData]
+  );
   const handleSubmit = (e) => {
     // form 안에 input을 전송할 때 페이지 리로드 되는 걸 막아줌
     e.preventDefault();
@@ -23,16 +30,18 @@ export default function App() {
       id: Date.now(),
       title: value,
       completed: false,
-    }
+    };
 
     // 원래 있던 할 일에 새로운 할 일 더해주기
     // 입력란에 있던 글씨 지워주기
-    setTodoData(prev => [...prev, newTodo]);
+    setTodoData((prev) => [...prev, newTodo]);
+    localStorage.setItem("todoData", JSON.stringify([...todoData, newTodo]));
     setValue("");
   };
 
   const handleRemoveClick = () => {
     setTodoData([]);
+    localStorage.setItem("todoData", JSON.stringify([]));
   };
 
   return (
@@ -42,8 +51,16 @@ export default function App() {
           <h1>할 일 목록</h1>
           <button onClick={handleRemoveClick}>Delete All</button>
         </div>
-      <Lists todoData={todoData} setTodoData={setTodoData} handleClick={handleClick}></Lists>
-      <Form handleSubmit={handleSubmit} value={value} setValue={setValue}></Form>
+        <Lists
+          todoData={todoData}
+          setTodoData={setTodoData}
+          handleClick={handleClick}
+        ></Lists>
+        <Form
+          handleSubmit={handleSubmit}
+          value={value}
+          setValue={setValue}
+        ></Form>
       </div>
     </div>
   );
