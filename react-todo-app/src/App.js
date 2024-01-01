@@ -31,7 +31,6 @@ export default function App() {
           <h1>할 일 목록</h1>
         </div>
       <Lists todoData={todoData} setTodoData={setTodoData}></Lists>
-
       <Form handleSubmit={handleSubmit} value={value} setValue={setValue}></Form>
       </div>
     </div>
