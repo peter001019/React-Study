@@ -8,12 +8,10 @@ const List = React.memo(({
   completed,
   provided,
   snapshot,
+  handleClick
 }) => {
-  const handleClick = (id) => {
-    let newTododata = todoData.filter((data) => data.id !== id);
-    setTodoData(newTododata);
-  };
-
+  console.log("List Component");
+  
   const handleCompleteChange = (id) => {
     let newTododata = todoData.map((data) => {
       if (data.id === id) {

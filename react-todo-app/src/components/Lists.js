@@ -2,7 +2,9 @@ import React from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import List from "./List";
 
-const Lists = React.memo(({ todoData, setTodoData }) => {
+const Lists = React.memo(({ todoData, setTodoData, handleClick }) => {
+  console.log("Lists Component");
+  
   const handleEnd = (result) => {
     //result 매개변수에는 source 항목 및 대상 위치와 같은 드래그 이벤트에 대한 정보가 포함됩니다.
     console.log(result);
@@ -42,6 +44,7 @@ const Lists = React.memo(({ todoData, setTodoData }) => {
                       completed={data.completed}
                       provided={provided}
                       snapshot={snapshot}
+                      handleClick={handleClick}
                     ></List>
                   )}
                 </Draggable>

@@ -1,12 +1,11 @@
 import React from 'react'
 
 export default function Form({handleSubmit, value, setValue}) {
+    console.log("Form Component");
 
     const handleChange = (e) => {
         setValue(e.target.value);
       };
-    
-    
   return (
     <form onSubmit={handleSubmit} className='flex pt-2'>
         <input
