@@ -4,16 +4,16 @@ import './Nav.css'
 function Nav() {
   const [show, handleShow] = useState(false);
 
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
+  useEffect(() => {  //useEffect 이용해 eventLitener 등록
+    window.addEventListener("scroll", () => { //스크롤 시 발생하는 eventListener 등록
       if(window.scrollY > 50) {
         handleShow(true);
       } else {
         handleShow(false);
       }
     });
-    return () => {
-      window.removeEventListener("scroll", () => {});
+    return () => { //컴포넌트가 사라지면 등록한 eventListener 제거
+      window.removeEventListener("scroll", () => {}); 
     }
   }, []);                                                               
 
