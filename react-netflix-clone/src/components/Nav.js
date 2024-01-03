@@ -15,7 +15,7 @@ function Nav() {
     return () => {
       window.removeEventListener("scroll", () => {});
     }
-  }, []);
+  }, []);                                                               
 
   return (
     <nav className={`nav ${show && "nav_black"}`}>
