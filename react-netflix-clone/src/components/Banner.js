@@ -73,10 +73,10 @@ function Banner() {
           <Iframe
             src={`https://www.youtube.com/embed/${key}
           ?controls=0&autoplay=1&loop=1&mute=1&playlist=${key}`}
-            width="560"
-            height="315"
+            width="640"
+            height="360"
             title="Youtube video player"
-            frameborder="0"
+            frameBorder="0"
             allow="autoplay; fullscreen"
           ></Iframe>
         </HomeContainer>
@@ -92,7 +92,7 @@ const Iframe = styled.iframe`
   opacity: 0.65;
   border: none;
 
-  &::after {
+  &: :after {
     content: "";
     position: absolute;
     top: 0;
