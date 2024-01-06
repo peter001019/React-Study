@@ -1,5 +1,6 @@
-import React from "react";
-import './MovieModal.css'
+import React, { useRef } from "react";
+import "./MovieModal.css";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 export default function MovieModal({
   backdrop_path,
@@ -11,10 +12,15 @@ export default function MovieModal({
   vote_average,
   setModalOpen,
 }) {
+  const ref = useRef();
+  useOnClickOutside(ref, () => { /*hooks 사용: 모달이 닫히게 하는 event 등록*/
+    setModalOpen(false);
+  });
+
   return (
     <div className="presentation" role="presentation">
       <div className="wrapper-modal">
-        <div className="modal">
+        <div className="modal" ref={ref}>
           <span onClick={() => setModalOpen(false)} className="modal-close">
             X
           </span>
@@ -27,9 +33,7 @@ export default function MovieModal({
 
           <div className="modal__content">
             <p className="modal_details">
-              <span className="modal__user-perc">
-                100% for you
-              </span>
+              <span className="modal__user-perc">100% for you</span>
               {release_date ? release_date : first_air_date}
             </p>
             <h2 className="modal__title">{title ? title : name}</h2>
