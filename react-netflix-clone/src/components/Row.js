@@ -3,6 +3,13 @@ import { useState, useEffect } from "react";
 import axios from "../api/axios";
 import "./Row.css";
 import MovieModal from "./MovieModal";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 function Row({ title, id, fetchUrl, isLargeRow }) {
   const [movies, setmovies] = useState([]);
@@ -27,42 +34,46 @@ function Row({ title, id, fetchUrl, isLargeRow }) {
   return (
     <section className="row">
       <h2>{title}</h2>
-      <div className="slider">
-        <div className="slider__arrow-left">
-          <span
-            className="arrow"
-            onClick={() => {
-              document.getElementById(id).scrollLeft -= window.innerWidth - 80;
-            }}
-          >
-            {"<"}
-          </span>
-        </div>
+      <Swiper
+        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        loop={true} //loop기능 사용 유무 = 한쪽으로 계속 이동할 떄 원상태로 복귀하며 반복할지
+        navigation //arrow 버튼 사용 유무
+        pagination={{ clickable: true }} //페이지 버튼 보이게 할지
+        breakpoints={{
+          1378: {
+            slidesPerView: 6, //한번에 보이는 슬라이드 개수
+            slidesPerGroup: 6, //한번에 몇개씩 슬라이드 할지
+          },
+          998: {
+            slidesPerView: 5, //한번에 보이는 슬라이드 개수
+            slidesPerGroup: 5, //한번에 몇개씩 슬라이드 할지
+          },
+          625: {
+            slidesPerView: 4, //한번에 보이는 슬라이드 개수
+            slidesPerGroup: 4, //한번에 몇개씩 슬라이드 할지
+          },
+          0: {
+            slidesPerView: 3, //한번에 보이는 슬라이드 개수
+            slidesPerGroup: 3, //한번에 몇개씩 슬라이드 할지
+          },
+        }}
+      >
         <div id={id} className="row__posters">
           {movies?.map((movie) => (
-            <img
-              key={movie.id}
-              onClick={() => handleClick(movie)}
-              className={`row__poster ${isLargeRow && "row__posterLarge"}`}
-              src={`https://image.tmdb.org/t/p/original/${
-                isLargeRow ? movie.poster_path : movie.backdrop_path
-              }`}
-              alt={movie.name}
-            />
+            <SwiperSlide>
+              <img
+                key={movie.id}
+                onClick={() => handleClick(movie)}
+                className={`row__poster ${isLargeRow && "row__posterLarge"}`}
+                src={`https://image.tmdb.org/t/p/original/${
+                  isLargeRow ? movie.poster_path : movie.backdrop_path
+                }`}
+                alt={movie.name}
+              />
+            </SwiperSlide>
           ))}
         </div>
-        <div className="slider__arrow-right">
-          <span
-            className="arrow"
-            onClick={() => {
-              document.getElementById(id).scrollLeft += window.innerWidth - 80;
-            }}
-          >
-            {">"}
-          </span>
-        </div>
-      </div>
-
+      </Swiper>
       {modalOpen && (
         <MovieModal setModalOpen={setModalOpen} {...movieSelected} />
       )}
