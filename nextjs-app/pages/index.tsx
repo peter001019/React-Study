@@ -18,7 +18,7 @@ export default function Home({
   }[];
 }) {
   return (
-    <div>
+    <div className={homeStyles.container}>
       <Head>
         <title>SeungWoo Han</title>
       </Head>

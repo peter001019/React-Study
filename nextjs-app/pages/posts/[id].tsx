@@ -3,8 +3,9 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import React from "react";
 import homeStyles from "../../styles/Home.module.css";
 import Head from "next/head";
+import postStyle from "../../styles/Post.module.css"
 
-export default function PostF({
+export default function Post({
   postData,
 }: {
   postData: {
@@ -14,7 +15,7 @@ export default function PostF({
   };
 }) {
   return (
-    <div>
+    <div className={postStyle.container}>
       <Head>
         <title>{postData.title}</title>
       </Head>
