@@ -11,7 +11,12 @@ function App() {
         <h3 data-testid="counter">{counter}</h3>
         <div>
           <button data-testid="minus-button">-</button>
-          <button data-testid="plus-button">+</button>
+          <button
+            data-testid="plus-button"
+            onClick={() => setCounter((count) => count + 1)}
+          >
+            +
+          </button>
         </div>
       </header>
     </div>
